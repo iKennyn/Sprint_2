@@ -27,11 +27,17 @@ class PointsForMeters:
 
 
 class TotalPoints(PointsForPlace, PointsForMeters):
-    @staticmethod
-    def get_total_points(meters, place):
-        total = PointsForPlace.get_points_for_place(place) + PointsForMeters.get_points_for_meters(meters)
-        return total
+    def get_total_points(self, meters, place):
+        points_place = self.get_points_for_place(place)
+        points_meters = self.get_points_for_meters(meters)
 
+        if type(points_place) == str:
+            return points_place
+        if type(points_meters) == str:
+            return points_meters
+
+        total = points_place + points_meters
+        return total
 
 points_for_place = PointsForPlace()
 print(points_for_place.get_points_for_place(10))
